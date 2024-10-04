@@ -1,5 +1,4 @@
 # netrunner
-****
 
 a visual tool for nmap
 
