@@ -1,33 +1,10 @@
 import * as React from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 import {useEffect, useRef, useState} from "react";
-import {Container} from "@mui/material";
+import Data from "./data.json";
 
 
 const Main = () => {
-    const data =
-        {
-            "nodes": [
-                {"id": "1", "type": "Router", "info": "Bruh"},
-                {"id": "2", "type": "Switch"},
-                {"id": "3", "type": "Server"},
-                {"id": "4", "type": "PC"},
-                {"id": "5", "type": "PC"},
-                {"id": "6", "type": "Access Point"},
-                {"id": "7", "type": "PC"},
-                {"id": "8", "type": "Printer"}
-            ],
-            "links": [
-                {"source": "1", "target": "2"},
-                {"source": "2", "target": "3"},
-                {"source": "2", "target": "4"},
-                {"source": "2", "target": "5"},
-                {"source": "2", "target": "6"},
-                {"source": "6", "target": "7"},
-                {"source": "2", "target": "8"}
-            ]
-        }
-
 
 
 
@@ -42,8 +19,8 @@ const Main = () => {
         const fg = fgRef.current;
 
         // Adjust the force simulation
-        fg.d3Force('charge').strength(-400); // Increase negative value for more repulsion
-        fg.d3Force('link').distance(400); // Increase distance between linked nodes
+        fg.d3Force('charge').strength(-150); // Increase negative value for more repulsion
+        fg.d3Force('link').distance(100); // Increase distance between linked nodes
     }, []);
 
     const drawLinkWithOffset = (link, ctx) => {
@@ -77,7 +54,7 @@ const Main = () => {
             <div>
                 <ForceGraph2D
                     ref={fgRef}
-                    graphData={data}
+                    graphData={Data}
                     backgroundColor="#0f1214"
                     nodeLabel="id"
                     onNodeClick={handleNodeClick}
@@ -87,7 +64,7 @@ const Main = () => {
                     linkCanvasObject={drawLinkWithOffset}  // Use custom function to draw links with offset
                     nodeCanvasObject={(node, ctx, globalScale) => {
                         const label = `${node.id} (${node.type})`;
-                        const fontSize = 60 / globalScale;
+                        const fontSize = 20 / globalScale;
                         ctx.font = `${fontSize}px Monospace`;
                         ctx.fillStyle = 'white';
                         ctx.textAlign = 'center';

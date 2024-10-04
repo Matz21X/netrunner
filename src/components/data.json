@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    {"id": "1", "type": "Router", "info": "Bruh"},
+    {"id": "2", "type": "Switch"},
+    {"id": "3", "type": "Server"},
+    {"id": "4", "type": "PC"},
+    {"id": "5", "type": "PC"},
+    {"id": "6", "type": "Access Point"},
+    {"id": "7", "type": "PC"},
+    {"id": "8", "type": "Printer"}
+  ],
+  "links": [
+    {"source": "1", "target": "2"},
+    {"source": "2", "target": "3"},
+    {"source": "2", "target": "4"},
+    {"source": "2", "target": "5"},
+    {"source": "2", "target": "6"},
+    {"source": "6", "target": "7"},
+    {"source": "2", "target": "8"}
+  ]
+}
