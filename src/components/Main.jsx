@@ -1,18 +1,28 @@
 import * as React from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 import {useEffect, useRef, useState} from "react";
+import {Box, Paper, Typography} from '@mui/material';
 import Data from "./data.json";
 
 
 const Main = () => {
 
 
-
-    const [selectedNode, setSelectedNode] = useState(null);
+    const [tapNode, setTapNode] = useState(null);
+    const [nodeData, setNodeData] = useState(null);
     const fgRef = useRef();
 
     const handleNodeClick = (node) => {
-        setSelectedNode(node);
+        if (node) {
+            setTapNode(node);
+            setNodeData({
+                id: node.id,
+                type: node.type,
+                details: `More information about ${node.id}`, // Example extra info
+            });
+        } else {
+            setTapNode(null);
+        }
     };
 
     useEffect(() => {
@@ -51,6 +61,7 @@ const Main = () => {
     };
 
     return (
+        <div style={{position: 'relative', height: '100vh', width: '100%'}}>
             <div>
                 <ForceGraph2D
                     ref={fgRef}
@@ -72,15 +83,40 @@ const Main = () => {
                         ctx.fillText(label, node.x, node.y);  // Shift label 10px upwards for better visibility
                     }}
                 />
-
-                {selectedNode && (
-                    <div className="node-info">
-                        <h3>Node Information</h3>
-                        <p>ID: {selectedNode.id}</p>
-                        <p>Type: {selectedNode.type}</p>
-                    </div>
-                )}
             </div>
+
+            {/* Floating semi-transparent UI */}
+            {tapNode && (
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: 20,
+                        left: 20,
+                        width: 300,
+                        zIndex: 10,
+                        opacity: 0.9,
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+                    }}
+                >
+                    <Paper elevation={3} sx={{padding: 2}}>
+                        <Typography variant="h6">Node Information</Typography>
+                        <Typography variant="body2">
+                            <strong>ID:</strong> {nodeData?.id}
+                        </Typography>
+                        <Typography variant="body2">
+                            <strong>Type:</strong> {nodeData?.type}
+                        </Typography>
+                        <Typography variant="body2">
+                            {nodeData?.details}
+                        </Typography>
+                    </Paper>
+                </Box>
+            )}
+
+
+        </div>
+
+
     );
 }
 
