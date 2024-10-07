@@ -56,7 +56,7 @@ const Main = () => {
         ctx.beginPath();
         ctx.moveTo(newStartX, newStartY);
         ctx.lineTo(newEndX, newEndY);
-        ctx.strokeStyle = '#ff6347'; // Set link color
+        ctx.strokeStyle = '#85cf16'; // Set link color
         ctx.stroke();
     };
 
@@ -86,19 +86,22 @@ const Main = () => {
             </div>
 
             {/* Floating semi-transparent UI */}
-            {tapNode && (
                 <Box
                     sx={{
                         position: 'absolute',
                         top: 20,
                         left: 20,
                         width: 300,
-                        zIndex: 10,
-                        opacity: 0.9,
-                        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+                        zIndex: 20,
+                        opacity: 1,
+                        elevation: 20,
+                        backgroundColor: 'rgba(0,0,0,1)', // Semi-transparent background
                     }}
                 >
-                    <Paper elevation={3} sx={{padding: 2}}>
+                    <Paper elevation={24} sx={{
+                        padding: 2,
+                        backgroundColor: '#2b6b6bö'
+                    }}>
                         <Typography variant="h6">Node Information</Typography>
                         <Typography variant="body2">
                             <strong>ID:</strong> {nodeData?.id}
@@ -111,7 +114,6 @@ const Main = () => {
                         </Typography>
                     </Paper>
                 </Box>
-            )}
 
 
         </div>
