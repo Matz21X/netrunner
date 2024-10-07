@@ -1,12 +1,11 @@
 import * as React from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 import {useEffect, useRef, useState} from "react";
-import {Box, Paper, Typography} from '@mui/material';
 import Data from "./data.json";
+import ScanForm from "./ScanForm";
 
 
 const Main = () => {
-
 
     const [tapNode, setTapNode] = useState(null);
     const [nodeData, setNodeData] = useState(null);
@@ -86,35 +85,7 @@ const Main = () => {
             </div>
 
             {/* Floating semi-transparent UI */}
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: 20,
-                        left: 20,
-                        width: 300,
-                        zIndex: 20,
-                        opacity: 1,
-                        elevation: 20,
-                        backgroundColor: 'rgba(0,0,0,1)', // Semi-transparent background
-                    }}
-                >
-                    <Paper elevation={24} sx={{
-                        padding: 2,
-                        backgroundColor: '#2b6b6bö'
-                    }}>
-                        <Typography variant="h6">Node Information</Typography>
-                        <Typography variant="body2">
-                            <strong>ID:</strong> {nodeData?.id}
-                        </Typography>
-                        <Typography variant="body2">
-                            <strong>Type:</strong> {nodeData?.type}
-                        </Typography>
-                        <Typography variant="body2">
-                            {nodeData?.details}
-                        </Typography>
-                    </Paper>
-                </Box>
-
+            <ScanForm></ScanForm>
 
         </div>
 
