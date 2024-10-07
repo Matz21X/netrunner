@@ -69,7 +69,7 @@ const Main = () => {
                     backgroundColor="#0f1214"
                     nodeLabel="id"
                     onNodeClick={handleNodeClick}
-                    nodeRelSize={40}
+                    nodeRelSize={20}
                     nodeColor={() => "#66b3ff"}
                     linkCanvasObjectMode={() => 'replace'} // Custom link drawing mode
                     linkCanvasObject={drawLinkWithOffset}  // Use custom function to draw links with offset
