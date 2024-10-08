@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {
     Box,
     TextField,
@@ -32,8 +31,61 @@ const ScanForm = () => {
 
     const onScanClick = () => {
         console.log("Scan clicked");
-        console.log(ipAddress);
+        handleScan()
     };
+
+
+
+    const handleScan = async () => {
+        if (!ipAddress) {
+            alert('Please enter a target IP or range!');
+            return;
+        }
+
+        // Clear previous output
+        setScanOutput('');
+
+        try {
+            // Verwende fetch für das Streamen von Daten
+            const response = await fetch('http://localhost:5000/scan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ target: ipAddress }),
+            });
+
+            if (!response.body) {
+                console.error('ReadableStream not supported by this browser.');
+                return;
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            let result;
+            while (!(result = await reader.read()).done) {
+                const chunk = decoder.decode(result.value);
+                setScanOutput(prevOutput => prevOutput + chunk);
+            }
+        } catch (error) {
+            console.error('Error during the scan:', error);
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <Box
@@ -51,7 +103,7 @@ const ScanForm = () => {
                 zIndex: 1000,
             }}
         >
-            <Typography variant="h6" sx={{ mb: 2 }}>
+            <Typography variant="h6" sx={{mb: 2}}>
                 Netrunner
             </Typography>
             <TextField
@@ -60,9 +112,9 @@ const ScanForm = () => {
                 onChange={(e) => setIpAddress(e.target.value)}
                 variant="standard"
                 fullWidth
-                sx={{ mb: 2 }}
+                sx={{mb: 2}}
             />
-            <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormControl fullWidth sx={{mb: 2}}>
                 <InputLabel id="scan-type-label">Scanart</InputLabel>
                 <Select
                     labelId="scan-type-label"
@@ -86,11 +138,11 @@ const ScanForm = () => {
                     value={customCommand}
                     onChange={(e) => setCustomCommand(e.target.value)}
                     fullWidth
-                    sx={{ mb: 2 }}
+                    sx={{mb: 2}}
                 />
             </Collapse>
 
-            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{mt: 2, display: 'flex', justifyContent: 'space-between'}}>
                 <Button variant="contained" color="primary" onClick={onScanClick}>
                     Scan
                 </Button>
@@ -98,6 +150,11 @@ const ScanForm = () => {
                     Cancel
                 </Button>
             </Box>
+            <div>
+                <h1>Nmap Scanner</h1>
+
+                <pre>{scanOutput}</pre>
+            </div>
         </Box>
     );
 };
