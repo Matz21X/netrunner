@@ -12,18 +12,26 @@ import {
 } from '@mui/material';
 
 const ScanForm = () => {
+    const [ipAddress, setIpAddress] = useState('');
     const [scanType, setScanType] = useState('');
     const [customCommandOpen, setCustomCommandOpen] = useState(false);
+    const [customCommand, setCustomCommand] = useState('');
 
     const handleScanTypeChange = (event) => {
         setScanType(event.target.value);
+        if (event.target.value !== 'custom') {
+            setCustomCommandOpen(false);
+        }
     };
 
     const toggleCustomCommand = () => {
         setCustomCommandOpen((prev) => !prev);
     };
 
-
+    const onScanClick = () => {
+        console.log("Scan clicked");
+        console.log(ipAddress);
+    };
 
     return (
         <Box
@@ -33,25 +41,27 @@ const ScanForm = () => {
                 left: 20,
                 width: 300,
                 p: 2,
-                bgcolor: 'rgb(255,255,255)', // halbtransparenter grauer Hintergrund
+                bgcolor: 'rgb(255,255,255)',
                 border: '2px solid blue',
-                borderRadius: '8px', // abgerundete Ecken
+                borderRadius: '8px',
                 display: 'flex',
                 flexDirection: 'column',
-                zIndex: 1000
+                zIndex: 1000,
             }}
         >
-            <Typography variant="h6" sx={{mb: 2}}>
-                Scan Tool
+            <Typography variant="h6" sx={{ mb: 2 }}>
+                Netrunner
             </Typography>
             <TextField
                 label="IP Address"
-                id={"standard-basic"}
+                id="standard-basic"
+                value={ipAddress}
+                onChange={(e) => setIpAddress(e.target.value)}
                 variant="standard"
                 fullWidth
-                sx={{mb: 2}}
+                sx={{ mb: 2 }}
             />
-            <FormControl fullWidth sx={{mb: 2}}>
+            <FormControl fullWidth sx={{ mb: 2 }}>
                 <InputLabel id="scan-type-label">Scanart</InputLabel>
                 <Select
                     labelId="scan-type-label"
@@ -72,20 +82,21 @@ const ScanForm = () => {
                 <TextField
                     label="Custom Command"
                     variant="outlined"
+                    value={customCommand}
+                    onChange={(e) => setCustomCommand(e.target.value)}
                     fullWidth
-                    sx={{mb: 2}}
+                    sx={{ mb: 2 }}
                 />
             </Collapse>
 
-            <Box sx={{mt: 2, display: 'flex', justifyContent: 'space-between'}}>
-                <Button variant="contained" color="primary">
+            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Button variant="contained" color="primary" onClick={onScanClick}>
                     Scan
                 </Button>
                 <Button variant="outlined" color="secondary">
                     Cancel
                 </Button>
             </Box>
-
         </Box>
     );
 };

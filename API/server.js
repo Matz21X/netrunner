@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.post('/scan', (req, res) => {
     const target = req.body.target;  // Get target from the POST request body
-    console.log(target)
+    console.log("POST")
     if (!target) {
         return res.status(400).json({ error: 'No target specified' });
     }
