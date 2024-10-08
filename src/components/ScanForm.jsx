@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     Box,
     TextField,
@@ -31,9 +31,14 @@ const ScanForm = () => {
 
     const onScanClick = () => {
         console.log("Scan clicked");
+        const url = 'http://localhost:3000'; // Die URL, die im Popup geöffnet werden soll
+        const windowName = 'myPoop'; // Der Name des Fensters
+        const windowFeatures = 'width=600,height=400,scrollbars=yes,resizable=yes'; // Fensteroptionen
+
+        // Öffnet das Popup-Fenster
+        const popup = window.open(url, windowName, windowFeatures);
         handleScan()
     };
-
 
 
     const handleScan = async () => {
@@ -52,7 +57,7 @@ const ScanForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ target: ipAddress }),
+                body: JSON.stringify({target: ipAddress}),
             });
 
             if (!response.body) {
@@ -74,88 +79,74 @@ const ScanForm = () => {
     };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
-        <Box
-            sx={{
-                position: 'absolute',
-                top: 20,
-                left: 20,
-                width: 300,
-                p: 2,
-                bgcolor: 'rgb(255,255,255)',
-                border: '2px solid blue',
-                borderRadius: '8px',
-                display: 'flex',
-                flexDirection: 'column',
-                zIndex: 1000,
-            }}
-        >
-            <Typography variant="h6" sx={{mb: 2}}>
-                Netrunner
-            </Typography>
-            <TextField
-                label="IP Address"
-                id="standard-basic"
-                onChange={(e) => setIpAddress(e.target.value)}
-                variant="standard"
-                fullWidth
-                sx={{mb: 2}}
-            />
-            <FormControl fullWidth sx={{mb: 2}}>
-                <InputLabel id="scan-type-label">Scanart</InputLabel>
-                <Select
-                    labelId="scan-type-label"
-                    id="scan-type"
-                    value={scanType}
-                    label="Scanart"
-                    onChange={handleScanTypeChange}
-                >
-                    <MenuItem value="quick">Quick Scan</MenuItem>
-                    <MenuItem value="full">Full Scan</MenuItem>
-                    <MenuItem value="custom" onClick={toggleCustomCommand}>
-                        Custom Scan
-                    </MenuItem>
-                </Select>
-            </FormControl>
-
-            <Collapse in={customCommandOpen}>
+        <div>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 20,
+                    left: 20,
+                    width: 300,
+                    p: 2,
+                    bgcolor: 'rgb(255,255,255)',
+                    border: '2px solid blue',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    zIndex: 2,
+                }}
+            >
+                <Typography variant="h6" sx={{mb: 2}}>
+                    Netrunner
+                </Typography>
                 <TextField
-                    label="Custom Command"
-                    variant="outlined"
-                    value={customCommand}
-                    onChange={(e) => setCustomCommand(e.target.value)}
+                    label="IP Address"
+                    id="standard-basic"
+                    onChange={(e) => setIpAddress(e.target.value)}
+                    variant="standard"
                     fullWidth
                     sx={{mb: 2}}
                 />
-            </Collapse>
+                <FormControl fullWidth sx={{mb: 2}}>
+                    <InputLabel id="scan-type-label">Scanart</InputLabel>
+                    <Select
+                        labelId="scan-type-label"
+                        id="scan-type"
+                        value={scanType}
+                        label="Scanart"
+                        onChange={handleScanTypeChange}
+                    >
+                        <MenuItem value="quick">Quick Scan</MenuItem>
+                        <MenuItem value="full">Full Scan</MenuItem>
+                        <MenuItem value="custom" onClick={toggleCustomCommand}>
+                            Custom Scan
+                        </MenuItem>
+                    </Select>
+                </FormControl>
 
-            <Box sx={{mt: 2, display: 'flex', justifyContent: 'space-between'}}>
-                <Button variant="contained" color="primary" onClick={onScanClick}>
-                    Scan
-                </Button>
-                <Button variant="outlined" color="secondary">
-                    Cancel
-                </Button>
+                <Collapse in={customCommandOpen}>
+                    <TextField
+                        label="Custom Command"
+                        variant="outlined"
+                        value={customCommand}
+                        onChange={(e) => setCustomCommand(e.target.value)}
+                        fullWidth
+                        sx={{mb: 2}}
+                    />
+                </Collapse>
+
+                <Box sx={{mt: 2, display: 'flex', justifyContent: 'space-between'}}>
+                    <Button variant="contained" color="primary" onClick={onScanClick}>
+                        Scan
+                    </Button>
+                    <Button variant="outlined" color="secondary">
+                        Cancel
+                    </Button>
+                </Box>
             </Box>
-            <div>
-                <h1>Nmap Scanner</h1>
 
-                <pre>{scanOutput}</pre>
-            </div>
-        </Box>
+        </div>
+
     );
 };
 
