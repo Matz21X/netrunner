@@ -31,21 +31,24 @@ const ScanForm = () => {
 
     const onScanClick = () => {
         console.log("Scan clicked");
-        const url = 'http://localhost:3000'; // Die URL, die im Popup geöffnet werden soll
-        const windowName = 'myPoop'; // Der Name des Fensters
-        const windowFeatures = 'width=600,height=400,scrollbars=yes,resizable=yes'; // Fensteroptionen
+        if (ipAddress){
+            // Öffnet ein Popup-Fenster
+            const popup = window.open("", "scanPopup", "width=600,height=400,scrollbars=yes,resizable=yes");
 
-        // Öffnet das Popup-Fenster
-        const popup = window.open(url, windowName, windowFeatures);
-        handleScan()
+            // Fügt eine vorläufige Nachricht hinzu
+            popup.document.write("<h1>Scan running...</h1>");
+
+            // Führt den Scan aus und aktualisiert das Popup mit dem Ergebnis
+            handleScan(popup);
+        } else {
+            alert('Please enter a target IP or range!');
+        }
+
     };
 
 
-    const handleScan = async () => {
-        if (!ipAddress) {
-            alert('Please enter a target IP or range!');
-            return;
-        }
+    const handleScan = async (popup) => {
+
 
         // Clear previous output
         setScanOutput('');
@@ -57,11 +60,12 @@ const ScanForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({target: ipAddress}),
+                body: JSON.stringify({ target: ipAddress }),
             });
 
             if (!response.body) {
                 console.error('ReadableStream not supported by this browser.');
+                popup.document.write("<p>Scan konnte nicht ausgeführt werden.</p>");
                 return;
             }
 
@@ -72,9 +76,16 @@ const ScanForm = () => {
             while (!(result = await reader.read()).done) {
                 const chunk = decoder.decode(result.value);
                 setScanOutput(prevOutput => prevOutput + chunk);
+
+                // Schreibe den Output in das Popup-Fenster
+                popup.document.write(`<pre>${chunk}</pre>`);
             }
+
+            // Scan abgeschlossen
+            popup.document.write("<p>Scan abgeschlossen!</p>");
         } catch (error) {
             console.error('Error during the scan:', error);
+            popup.document.write("<p>Error during the scan.</p>");
         }
     };
 
@@ -144,9 +155,7 @@ const ScanForm = () => {
                     </Button>
                 </Box>
             </Box>
-
         </div>
-
     );
 };
 
