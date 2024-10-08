@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
     Box,
     TextField,
@@ -16,6 +17,7 @@ const ScanForm = () => {
     const [scanType, setScanType] = useState('');
     const [customCommandOpen, setCustomCommandOpen] = useState(false);
     const [customCommand, setCustomCommand] = useState('');
+    const [scanOutput, setScanOutput] = useState('')
 
     const handleScanTypeChange = (event) => {
         setScanType(event.target.value);
@@ -55,7 +57,6 @@ const ScanForm = () => {
             <TextField
                 label="IP Address"
                 id="standard-basic"
-                value={ipAddress}
                 onChange={(e) => setIpAddress(e.target.value)}
                 variant="standard"
                 fullWidth
