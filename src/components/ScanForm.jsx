@@ -11,6 +11,8 @@ import {
     Typography,
 } from '@mui/material';
 
+// TODO: Add scantype feature
+
 const ScanForm = () => {
     const [ipAddress, setIpAddress] = useState('');
     const [scanType, setScanType] = useState('');
