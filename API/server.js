@@ -1,5 +1,5 @@
 const express = require('express');
-const { spawn } = require('child_process');
+const {spawn} = require('child_process');
 const cors = require('cors');
 
 const app = express();
@@ -12,15 +12,14 @@ app.use(express.json());
 app.post('/scan', (req, res) => {
     const target = req.body.target;  // Get target from the POST request body
     const type = req.body.type;
-    console.log("Type: "+ type);
-    console.log("Target: "+ target);
 
     if (!target) {
-        return res.status(400).json({ error: 'No target specified' });
+        return res.status(400).json({error: 'No target specified'});
     }
 
     // Run the nmap command
-    const nmap = spawn('nmap', [type, target]);
+    const nmap = spawn('nmap', ['-T4 -A -v', target]);
+    console.log("nmap " + type + " " + target);
 
     // Stream live output to the frontend
     nmap.stdout.on('data', (data) => {
