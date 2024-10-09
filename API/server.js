@@ -12,16 +12,17 @@ app.use(express.json());
 app.post('/scan', (req, res) => {
     const target = req.body.target;  // Get target from the POST request body
     const type = req.body.type;
+    const typeOptions = type.split(' ');
 
     if (!target) {
         return res.status(400).json({error: 'No target specified'});
     }
 
     // Run the nmap command
-    const nmap = spawn('nmap', ['-T4 -A -v', target]);
+    const nmap = spawn('nmap', [... typeOptions, target]);
     console.log("nmap " + type + " " + target);
 
-    // Stream live output to the frontend
+    // Stream live output to the fronten
     nmap.stdout.on('data', (data) => {
         console.log(`Nmap output: ${data}`);
         res.write(data);  // Send live output to the frontend

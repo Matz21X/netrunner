@@ -11,7 +11,7 @@ import {
     Typography,
 } from '@mui/material';
 
-// TODO: Add scantype feature
+// TODO: Add custom command functionality
 
 const ScanForm = () => {
     const [ipAddress, setIpAddress] = useState('');
@@ -22,6 +22,7 @@ const ScanForm = () => {
 
     const handleScanTypeChange = (event) => {
         setScanType(event.target.value);
+
         if (event.target.value !== 'custom') {
             setCustomCommandOpen(false);
         }
