@@ -15,7 +15,7 @@ import {
 
 const ScanForm = () => {
     const [ipAddress, setIpAddress] = useState('');
-    const [scanType, setScanType] = useState('');
+    const [scanType, setScanType] = useState('-T4 -F');
     const [customCommandOpen, setCustomCommandOpen] = useState(false);
     const [customCommand, setCustomCommand] = useState('');
     const [scanOutput, setScanOutput] = useState('')
@@ -62,7 +62,10 @@ const ScanForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ target: ipAddress }),
+                body: JSON.stringify({
+                    target: ipAddress,
+                    type: scanType
+                }),
             });
 
             if (!response.body) {
@@ -113,7 +116,7 @@ const ScanForm = () => {
                     Netrunner
                 </Typography>
                 <TextField
-                    label="IP Address"
+                    label="IP Address / Pool"
                     id="standard-basic"
                     onChange={(e) => setIpAddress(e.target.value)}
                     variant="standard"
@@ -121,7 +124,7 @@ const ScanForm = () => {
                     sx={{mb: 2}}
                 />
                 <FormControl fullWidth sx={{mb: 2}}>
-                    <InputLabel id="scan-type-label">Scanart</InputLabel>
+                    <InputLabel id="scan-type-label">Scantype</InputLabel>
                     <Select
                         labelId="scan-type-label"
                         id="scan-type"
@@ -129,8 +132,16 @@ const ScanForm = () => {
                         label="Scanart"
                         onChange={handleScanTypeChange}
                     >
-                        <MenuItem value="quick">Quick Scan</MenuItem>
-                        <MenuItem value="full">Full Scan</MenuItem>
+                        <MenuItem value="-T4 -F">Quick Scan</MenuItem>
+                        <MenuItem value="-T4 -A -v">Intense scan</MenuItem>
+                        <MenuItem value="-sS -sU -T4 -A -v">Intense scan + UDP</MenuItem>
+                        <MenuItem value="-p 1-65535 -T4 -A -v">Intense scan, all TCP ports</MenuItem>
+                        <MenuItem value="-T4 -A -v -Pn">Intense scan, no ping</MenuItem>
+                        <MenuItem value="-sn">Ping scan</MenuItem>
+                        <MenuItem value="-sV -T4 -O -F --version-light">Quick scan plus</MenuItem>
+                        <MenuItem value="-sn --traceroute">Quick trcrt</MenuItem>
+                        <MenuItem value=" ">Regular scan</MenuItem>
+                        <MenuItem value="-sS">Slow comprehensive scan</MenuItem>
                         <MenuItem value="custom" onClick={toggleCustomCommand}>
                             Custom Scan
                         </MenuItem>
