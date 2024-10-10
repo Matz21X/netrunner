@@ -3,7 +3,7 @@ const xml2js = require('xml2js');
 
 const parser = new xml2js.Parser();
 
-fs.readFile('C:\\Users\\matth\\Documents\\GIT\\netrunner\\scan.xml', (err, data) => {
+fs.readFile('scan.xml', (err, data) => {
     if (err) throw err;
 
     parser.parseString(data, (err, result) => {

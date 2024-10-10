@@ -28,8 +28,8 @@ const Main = () => {
         const fg = fgRef.current;
 
         // Adjust the force simulation
-        fg.d3Force('charge').strength(-150); // Increase negative value for more repulsion
-        fg.d3Force('link').distance(100); // Increase distance between linked nodes
+        fg.d3Force('charge').strength(-180); // Increase negative value for more repulsion
+        fg.d3Force('link').distance(150); // Increase distance between linked nodes
     }, []);
 
     const drawLinkWithOffset = (link, ctx) => {
