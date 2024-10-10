@@ -85,7 +85,7 @@ const Main = () => {
             </div>
 
             {/* Floating semi-transparent UI */}
-            <ScanForm></ScanForm>
+            <ScanForm/>
 
         </div>
 

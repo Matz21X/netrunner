@@ -33,8 +33,9 @@ const ScanForm = () => {
 
     const onScanClick = () => {
         if (ipAddress) {
-            const popup = window.open("", "scanPopup", "width=600,height=400,scrollbars=yes,resizable=yes");
+            const popup = window.open("", "scanPopup", "width=700,height=400,scrollbars=yes,resizable=yes");
             popup.document.write("<h1>Scan running...</h1>");
+            popup.document.write(scanType);
             handleScan(popup);
         } else {
             alert('Please enter a target IP or range!');
@@ -57,7 +58,7 @@ const ScanForm = () => {
                 },
                 body: JSON.stringify({
                     target: ipAddress,
-                    type: commandToUse,  // Verwende den benutzerdefinierten oder Standard-Scan-Typ
+                    type: commandToUse,
                 }),
             });
 
