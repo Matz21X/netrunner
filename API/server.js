@@ -19,7 +19,7 @@ app.post('/scan', (req, res) => {
     }
 
     // Run the nmap command
-    const nmap = spawn('nmap', [... typeOptions, target]);
+    const nmap = spawn('nmap', [... typeOptions, '-oX', 'scan.xml', target]);
     console.log("nmap " + type + " " + target);
 
     // Stream live output to the fronten

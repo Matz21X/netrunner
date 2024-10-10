@@ -1,21 +1,38 @@
 {
   "nodes": [
-    {"id": "1", "type": "Router", "info": "Bruh"},
-    {"id": "2", "type": "Switch"},
-    {"id": "3", "type": "Server"},
-    {"id": "4", "type": "PC"},
-    {"id": "5", "type": "PC"},
-    {"id": "6", "type": "Access Point"},
-    {"id": "7", "type": "PC"},
-    {"id": "8", "type": "Printer"}
+    {
+      "id": "192.168.45.104",
+      "type": "PC",
+      "info": "MAC: AE:01:65:10:1A:2A, Open Ports: None"
+    },
+    {
+      "id": "192.168.45.236",
+      "type": "PC",
+      "info": "MAC: C2:97:A1:6C:77:85, Open Ports: 53"
+    },
+    {
+      "id": "192.168.45.0",
+      "type": "PC",
+      "info": "MAC: C2:97:A1:6C:77:85, Open Ports: 53"
+    },
+    {
+      "id": "192.168.45.110",
+      "type": "PC",
+      "info": "MAC: Unknown, Open Ports: 135, 139, 445, 902, 912, 3000, 5000, 5357"
+    }
   ],
   "links": [
-    {"source": "1", "target": "2"},
-    {"source": "2", "target": "3"},
-    {"source": "2", "target": "4"},
-    {"source": "2", "target": "5"},
-    {"source": "2", "target": "6"},
-    {"source": "6", "target": "7"},
-    {"source": "2", "target": "8"}
+    {
+      "source": "192.168.45.0",
+      "target": "192.168.45.104"
+    },
+    {
+      "source": "192.168.45.0",
+      "target": "192.168.45.236"
+    },
+    {
+      "source": "192.168.45.0",
+      "target": "192.168.45.110"
+    }
   ]
 }
