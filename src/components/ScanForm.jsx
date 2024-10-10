@@ -11,53 +11,45 @@ import {
     Typography,
 } from '@mui/material';
 
-// TODO: Add custom command functionality
-
 const ScanForm = () => {
     const [ipAddress, setIpAddress] = useState('');
     const [scanType, setScanType] = useState('-T4 -F');
     const [customCommandOpen, setCustomCommandOpen] = useState(false);
     const [customCommand, setCustomCommand] = useState('');
-    const [scanOutput, setScanOutput] = useState('')
+    // eslint-disable-next-line
+    const [scanOutput, setScanOutput] = useState('');
 
     const handleScanTypeChange = (event) => {
-        setScanType(event.target.value);
+        const selectedScanType = event.target.value;
+        setScanType(selectedScanType);
 
-        if (event.target.value !== 'custom') {
+        // Öffnet das Custom Command-Feld, wenn 'custom' ausgewählt wird
+        if (selectedScanType === 'custom') {
+            setCustomCommandOpen(true);
+        } else {
             setCustomCommandOpen(false);
         }
     };
 
-    const toggleCustomCommand = () => {
-        setCustomCommandOpen((prev) => !prev);
-    };
-
     const onScanClick = () => {
-        console.log("Scan clicked");
-        if (ipAddress){
-            // Öffnet ein Popup-Fenster
+        if (ipAddress) {
             const popup = window.open("", "scanPopup", "width=600,height=400,scrollbars=yes,resizable=yes");
-
-            // Fügt eine vorläufige Nachricht hinzu
             popup.document.write("<h1>Scan running...</h1>");
-
-            // Führt den Scan aus und aktualisiert das Popup mit dem Ergebnis
             handleScan(popup);
         } else {
             alert('Please enter a target IP or range!');
         }
-
     };
 
-
     const handleScan = async (popup) => {
-
-
-        // Clear previous output
         setScanOutput('');
 
+
         try {
-            // Verwende fetch für das Streamen von Daten
+            // Überprüfe, ob ein benutzerdefinierter Befehl ausgewählt wurde
+            const commandToUse = scanType === 'custom' ? customCommand : scanType;
+            console.log(commandToUse)
+
             const response = await fetch('http://localhost:5000/scan', {
                 method: 'POST',
                 headers: {
@@ -65,7 +57,7 @@ const ScanForm = () => {
                 },
                 body: JSON.stringify({
                     target: ipAddress,
-                    type: scanType
+                    type: commandToUse,  // Verwende den benutzerdefinierten oder Standard-Scan-Typ
                 }),
             });
 
@@ -82,19 +74,17 @@ const ScanForm = () => {
             while (!(result = await reader.read()).done) {
                 const chunk = decoder.decode(result.value);
                 setScanOutput(prevOutput => prevOutput + chunk);
-
-                // Schreibe den Output in das Popup-Fenster
                 popup.document.write(`<pre>${chunk}</pre>`);
             }
 
-            // Scan abgeschlossen
             popup.document.write("<p>Scan abgeschlossen!</p>");
         } catch (error) {
             console.error('Error during the scan:', error);
             popup.document.write("<p>Error during the scan.</p>");
         }
-    };
 
+
+    };
 
     return (
         <div>
@@ -143,7 +133,7 @@ const ScanForm = () => {
                         <MenuItem value="-sn --traceroute">Quick trcrt</MenuItem>
                         <MenuItem value=" ">Regular scan</MenuItem>
                         <MenuItem value="-sS">Slow comprehensive scan</MenuItem>
-                        <MenuItem value="custom" onClick={toggleCustomCommand}>
+                        <MenuItem value="custom">
                             Custom Scan
                         </MenuItem>
                     </Select>
