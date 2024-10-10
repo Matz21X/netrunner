@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# netdata
+/API/data.json
+/API/scan.xml
+/src/components/data.json
