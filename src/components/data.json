@@ -3,97 +3,142 @@
     {
       "id": "192.168.132.11",
       "type": "PC",
-      "info": "MAC: 00:1D:EC:13:B0:C2, Open Ports: 21, 22, 23, 80, 139, 445"
+      "info": "node.info",
+      "vendor": "Marusys",
+      "mac": "00:1D:EC:13:B0:C2",
+      "ports": "21, 22, 23, 80, 139, 445",
+      "services": "ftp, ssh, telnet, http, netbios-ssn, microsoft-ds"
     },
     {
       "id": "192.168.132.99",
       "type": "PC",
-      "info": "MAC: 00:03:AC:3E:D1:12, Open Ports: 22, 80, 5000"
-    },
-    {
-      "id": "192.168.132.130",
-      "type": "PC",
-      "info": "MAC: 84:0D:8E:61:CB:FC, Open Ports: None"
+      "info": "node.info",
+      "vendor": "Fronius Schweissmaschinen",
+      "mac": "00:03:AC:3E:D1:12",
+      "ports": "22, 80, 5000",
+      "services": "ssh, http, upnp"
     },
     {
       "id": "192.168.132.131",
       "type": "PC",
-      "info": "MAC: 40:D6:3C:A2:61:AC, Open Ports: 80, 8080"
+      "info": "node.info",
+      "vendor": "Equitech Industrial(DongGuan)Co.",
+      "mac": "40:D6:3C:A2:61:AC",
+      "ports": "80, 8080",
+      "services": "http, http-proxy"
     },
     {
       "id": "192.168.132.133",
       "type": "PC",
-      "info": "MAC: 62:04:B6:29:6D:68, Open Ports: None"
+      "info": "node.info",
+      "vendor": "Unknown Vendor",
+      "mac": "62:04:B6:29:6D:68",
+      "ports": "None",
+      "services": "None"
     },
     {
       "id": "192.168.132.135",
       "type": "PC",
-      "info": "MAC: EC:B1:D7:F7:B7:C7, Open Ports: 80, 139, 443, 445, 515, 631, 8080, 9100"
+      "info": "node.info",
+      "vendor": "Hewlett Packard",
+      "mac": "EC:B1:D7:F7:B7:C7",
+      "ports": "80, 139, 443, 445, 515, 631, 8080, 9100",
+      "services": "http, netbios-ssn, https, microsoft-ds, printer, ipp, http-proxy, jetdirect"
     },
     {
       "id": "192.168.132.136",
       "type": "PC",
-      "info": "MAC: AC:15:A2:88:1B:8C, Open Ports: 80, 443"
+      "info": "node.info",
+      "vendor": "TP-Link Limited",
+      "mac": "AC:15:A2:88:1B:8C",
+      "ports": "80, 443",
+      "services": "http, https"
     },
     {
       "id": "192.168.132.137",
       "type": "PC",
-      "info": "MAC: 9C:A2:F4:B4:3A:76, Open Ports: 80, 443, 10000"
+      "info": "node.info",
+      "vendor": "TP-Link Limited",
+      "mac": "9C:A2:F4:B4:3A:76",
+      "ports": "80, 443, 10000",
+      "services": "http, https, snet-sensor-mgmt"
     },
     {
       "id": "192.168.132.139",
       "type": "PC",
-      "info": "MAC: 9C:A2:F4:B4:3A:7A, Open Ports: 80, 443, 10000"
+      "info": "node.info",
+      "vendor": "TP-Link Limited",
+      "mac": "9C:A2:F4:B4:3A:7A",
+      "ports": "80, 443, 10000",
+      "services": "http, https, snet-sensor-mgmt"
     },
     {
       "id": "192.168.132.141",
       "type": "PC",
-      "info": "MAC: 68:07:0A:4D:C6:93, Open Ports: 8008, 8009, 8443, 49153"
+      "info": "node.info",
+      "vendor": "TPVision Europe B.V",
+      "mac": "68:07:0A:4D:C6:93",
+      "ports": "8008, 8009, 8443, 49153",
+      "services": "http, ajp13, https-alt, Unknown Service"
     },
     {
-      "id": "192.168.132.143",
+      "id": "192.168.132.151",
       "type": "PC",
-      "info": "MAC: C2:32:61:A2:86:F6, Open Ports: None"
-    },
-    {
-      "id": "192.168.132.148",
-      "type": "PC",
-      "info": "MAC: 48:A4:72:98:D8:98, Open Ports: 135, 139, 445, 5357"
+      "info": "node.info",
+      "vendor": "Unknown Vendor",
+      "mac": "08:F9:E0:7E:41:71",
+      "ports": "80",
+      "services": "http"
     },
     {
       "id": "192.168.132.152",
       "type": "PC",
-      "info": "MAC: 8A:A3:E2:FC:1B:08, Open Ports: None"
+      "info": "node.info",
+      "vendor": "Unknown Vendor",
+      "mac": "8A:A3:E2:FC:1B:08",
+      "ports": "None",
+      "services": "None"
+    },
+    {
+      "id": "192.168.132.156",
+      "type": "PC",
+      "info": "node.info",
+      "vendor": "Unknown Vendor",
+      "mac": "C6:00:93:86:46:76",
+      "ports": "None",
+      "services": "None"
     },
     {
       "id": "192.168.132.157",
       "type": "PC",
-      "info": "MAC: 08:F9:E0:7E:4B:8B, Open Ports: None"
-    },
-    {
-      "id": "192.168.132.159",
-      "type": "PC",
-      "info": "MAC: 96:D0:EB:E5:B1:EA, Open Ports: None"
+      "info": "node.info",
+      "vendor": "Unknown Vendor",
+      "mac": "08:F9:E0:7E:4B:8B",
+      "ports": "None",
+      "services": "None"
     },
     {
       "id": "192.168.132.254",
       "type": "PC",
-      "info": "MAC: 50:67:F0:35:9B:7F, Open Ports: 21, 22, 53, 80, 443"
+      "info": "node.info",
+      "vendor": "Zyxel Communications",
+      "mac": "50:67:F0:35:9B:7F",
+      "ports": "21, 22, 53, 80, 443",
+      "services": "ftp, ssh, domain, http, https"
     },
     {
       "id": "192.168.132.146",
       "type": "PC",
-      "info": "MAC: Unknown, Open Ports: 135, 139, 445, 3000, 3389, 5000, 5357"
+      "info": "node.info",
+      "vendor": "Unknown Vendor",
+      "ports": "135, 139, 445, 3000, 3389, 5000, 5357",
+      "services": "msrpc, netbios-ssn, microsoft-ds, ppp, ms-wbt-server, upnp, wsdapi"
     }
   ],
   "links": [
     {
       "source": "192.168.132.11",
       "target": "192.168.132.99"
-    },
-    {
-      "source": "192.168.132.11",
-      "target": "192.168.132.130"
     },
     {
       "source": "192.168.132.11",
@@ -125,11 +170,7 @@
     },
     {
       "source": "192.168.132.11",
-      "target": "192.168.132.143"
-    },
-    {
-      "source": "192.168.132.11",
-      "target": "192.168.132.148"
+      "target": "192.168.132.151"
     },
     {
       "source": "192.168.132.11",
@@ -137,11 +178,11 @@
     },
     {
       "source": "192.168.132.11",
-      "target": "192.168.132.157"
+      "target": "192.168.132.156"
     },
     {
       "source": "192.168.132.11",
-      "target": "192.168.132.159"
+      "target": "192.168.132.157"
     },
     {
       "source": "192.168.132.11",

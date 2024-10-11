@@ -51,7 +51,7 @@ const ScanForm = () => {
             const commandToUse = scanType === 'custom' ? customCommand : scanType;
             console.log(commandToUse)
 
-            const response = await fetch('http://localhost:5000/scan', {
+            const response = await fetch('http://192.168.132.146:5000/scan', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,21 +70,27 @@ const ScanForm = () => {
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-
             let result;
+            let fullOutput = '';
+
             while (!(result = await reader.read()).done) {
-                const chunk = decoder.decode(result.value);
-                setScanOutput(prevOutput => prevOutput + chunk);
-                popup.document.write(`<pre>${chunk}</pre>`);
+                const chunk = decoder.decode(result.value, { stream: true });
+                fullOutput += chunk;
+
+                // Render den Live-Output im Popup
+                popup.document.body.innerHTML = `<pre>${fullOutput}</pre>`;
+
+                // Automatisch scrollen
+                popup.scrollTo(0, popup.document.body.scrollHeight);
             }
 
-            popup.document.write("<p>Scan abgeschlossen!</p>");
+            // Finalen Output rendern und scrollen
+            popup.document.body.innerHTML = `<pre>${fullOutput}</pre>`;
+            popup.scrollTo(0, popup.document.body.scrollHeight);
         } catch (error) {
             console.error('Error during the scan:', error);
-            popup.document.write("<p>Error during the scan.</p>");
+            popup.document.write('<p>Error during the scan.</p>');
         }
-
-
     };
 
     return (

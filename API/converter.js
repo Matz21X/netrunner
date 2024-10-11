@@ -20,12 +20,18 @@ fs.readFile('scan.xml', (err, data) => {
                 const ipv4 = host.address.find(addr => addr.$.addrtype === 'ipv4').$.addr;
                 const mac = host.address.find(addr => addr.$.addrtype === 'mac')?.$.addr;
                 const openPorts = host.ports?.[0]?.port?.map(port => port.$.portid).join(', ') || 'None';
+                const vendor = host.address.find(addr => addr.$.addrtype === 'mac')?.$.vendor || 'Unknown Vendor';
+                const services = host.ports?.[0]?.port?.map(port => port.service?.[0]?.$.name || 'Unknown Service').join(', ') || 'None';
 
                 // Node hinzufügen
                 nodes.push({
                     id: ipv4,
                     type: 'PC',  // Beispiel: kannst du je nach Info anpassen
-                    info: `MAC: ${mac || 'Unknown'}, Open Ports: ${openPorts}`
+                    info: 'node.info',
+                    vendor: vendor,
+                    mac: mac,
+                    ports: openPorts,
+                    services: services
                 });
 
                 // Beispiel einer Link-Verknüpfung zu einem Router (muss an deine Netzwerktopologie angepasst werden)

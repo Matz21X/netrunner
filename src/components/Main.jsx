@@ -3,25 +3,32 @@ import ForceGraph2D from 'react-force-graph-2d';
 import {useEffect, useRef, useState} from "react";
 import Data from "./data.json";
 import ScanForm from "./ScanForm";
+import {Box, Typography} from "@mui/material";
 
 
 const Main = () => {
-
+// eslint-disable-next-line
     const [tapNode, setTapNode] = useState(null);
     const [nodeData, setNodeData] = useState(null);
     const fgRef = useRef();
 
     const handleNodeClick = (node) => {
+        console.log(node)
         if (node) {
             setTapNode(node);
             setNodeData({
-                id: node.id,
-                type: node.type,
-                details: `More information about ${node.id}`, // Example extra info
+                id: node.ipv4,
+                type: node.type,  // Beispiel: kannst du je nach Info anpassen
+                info: node.info,
+                vendor: node.vendor,
+                mac: node.mac,
+                ports: node.ports,
+                services: node.services,
             });
         } else {
             setTapNode(null);
         }
+        console.log(nodeData)
     };
 
     useEffect(() => {
@@ -73,7 +80,7 @@ const Main = () => {
                     linkCanvasObjectMode={() => 'replace'} // Custom link drawing mode
                     linkCanvasObject={drawLinkWithOffset}  // Use custom function to draw links with offset
                     nodeCanvasObject={(node, ctx, globalScale) => {
-                        const label = `${node.id} (${node.type})`;
+                        const label = `${node.id} (${node.vendor})`;
                         const fontSize = 20 / globalScale;
                         ctx.font = `${fontSize}px Monospace`;
                         ctx.fillStyle = 'white';
@@ -86,6 +93,26 @@ const Main = () => {
 
             {/* Floating semi-transparent UI */}
             <ScanForm/>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 20,
+                    right: 20,
+                    p: 2,
+                    bgcolor: 'rgb(255,255,255)',
+                    border: '2px solid blue',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    zIndex: 2,
+                }}
+            >
+                <Typography variant="h6" sx={{mb: 2}}>
+                    Netrunner
+                </Typography>
+
+
+            </Box>
 
         </div>
 

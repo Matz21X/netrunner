@@ -26,7 +26,7 @@ app.post('/scan', (req, res) => {
 
     // Stream live output to the frontend
     nmap.stdout.on('data', (data) => {
-        console.log(`Nmap output: ${data}`);
+        //console.log(`Nmap output: ${data}`);
         res.write(data);  // Send live output to the frontend
     });
 
