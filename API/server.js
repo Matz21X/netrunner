@@ -2,6 +2,7 @@ const express = require('express');
 const { spawn, exec } = require('child_process');
 const cors = require('cors');
 const path = require('path');
+const os = require('os');
 const fs = require('fs');
 
 const app = express();
@@ -71,6 +72,61 @@ app.post('/scan', (req, res) => {
     });
 });
 
+
+
+// Funktion, um die lokale IP-Adresse und Subnetzmaske zu ermitteln
+function getLocalIPAddress() {
+    const networkInterfaces = os.networkInterfaces();
+    for (const interfaceName in networkInterfaces) {
+        const addresses = networkInterfaces[interfaceName];
+        for (const address of addresses) {
+            if (address.family === 'IPv4' && !address.internal) {
+                return {
+                    ip: address.address,
+                    subnetMask: address.netmask
+                };
+            }
+        }
+    }
+    return null;
+}
+
+// Funktion, um die Netzadresse zu berechnen
+function calculateNetworkAddress(ip, subnetMask) {
+    const ipParts = ip.split('.').map(Number);
+    const maskParts = subnetMask.split('.').map(Number);
+
+    const networkParts = ipParts.map((part, i) => part & maskParts[i]);
+    return networkParts.join('.');
+}
+
+// Funktion, um die Subnetzmaske in CIDR-Notation zu konvertieren
+function subnetMaskToCIDR(mask) {
+    return mask.split('.')
+        .map(Number)
+        .map(n => n.toString(2).padStart(8, '0'))
+        .join('')
+        .split('1').length - 1;
+}
+
+// Route, um IP-Adresse und Netzadresse in CIDR zurückzugeben
+app.get('/ip', (req, res) => {
+    const ipInfo = getLocalIPAddress();
+    if (ipInfo) {
+        const networkAddress = calculateNetworkAddress(ipInfo.ip, ipInfo.subnetMask);
+        const cidr = subnetMaskToCIDR(ipInfo.subnetMask);
+
+        // Rückgabe der IP-Adresse und Netzadresse
+        res.json({
+            ip: ipInfo.ip,
+            network: `${networkAddress}/${cidr}`
+        });
+    } else {
+        res.status(500).send('Konnte keine lokale IP-Adresse ermitteln.');
+    }
+});
+
+// Server starten
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server läuft auf http://localhost:${port}`);
 });
