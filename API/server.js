@@ -63,7 +63,7 @@ app.post('/scan', (req, res) => {
                     }
 
                     console.log('data.json successfully copied to src/components');
-                    res.end('Scan, conversion, and file copy completed');
+                    res.end('<h3>Scan, conversion, and file copy completed</h3>');
                 });
             });
         } else {

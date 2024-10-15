@@ -16,8 +16,6 @@ const ScanForm = () => {
     const [scanType, setScanType] = useState('-T4 -F');
     const [customCommandOpen, setCustomCommandOpen] = useState(false);
     const [customCommand, setCustomCommand] = useState('');
-    // eslint-disable-next-line
-    const [scanOutput, setScanOutput] = useState('');
     const [network, setNetwork] = useState('');
 
     useEffect(() => {
@@ -61,8 +59,6 @@ const ScanForm = () => {
     }
 
     const handleScan = async (popup) => {
-        setScanOutput('');
-
 
         try {
             // Überprüfe, ob ein benutzerdefinierter Befehl ausgewählt wurde
