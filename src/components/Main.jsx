@@ -12,8 +12,14 @@ const Main = () => {
     const [nodeData, setNodeData] = useState(null);
     const fgRef = useRef();
 
+
+    useEffect(() => {
+        const fg = fgRef.current;
+        fg.d3Force('charge').strength(-180); // Increase negative value for more repulsion
+        fg.d3Force('link').distance(150); // Increase distance between linked nodes
+    }, []);
+
     const handleNodeClick = (node) => {
-        console.log(node)
         if (node) {
             setTapNode(node);
             setNodeData({
@@ -28,16 +34,8 @@ const Main = () => {
         } else {
             setTapNode(null);
         }
-        console.log(nodeData)
+
     };
-
-    useEffect(() => {
-        const fg = fgRef.current;
-
-        // Adjust the force simulation
-        fg.d3Force('charge').strength(-180); // Increase negative value for more repulsion
-        fg.d3Force('link').distance(150); // Increase distance between linked nodes
-    }, []);
 
     const drawLinkWithOffset = (link, ctx) => {
         const nodeRadius = 20;  // Define the radius of the node to offset the link

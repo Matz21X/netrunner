@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     TextField,
@@ -18,6 +18,11 @@ const ScanForm = () => {
     const [customCommand, setCustomCommand] = useState('');
     // eslint-disable-next-line
     const [scanOutput, setScanOutput] = useState('');
+    const [network, setNetwork] = useState('');
+
+    useEffect(() => {
+        fetchIPAddress()
+    }, []);
 
     const handleScanTypeChange = (event) => {
         const selectedScanType = event.target.value;
@@ -41,6 +46,19 @@ const ScanForm = () => {
             alert('Please enter a target IP or range!');
         }
     };
+
+    async function fetchIPAddress() {
+        try {
+            const response = await fetch('http://localhost:5000/ip');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setNetwork(data.network);
+        } catch (error) {
+            console.error('Es gab ein Problem mit dem fetchen der Netzadresse:', error);
+        }
+    }
 
     const handleScan = async (popup) => {
         setScanOutput('');
@@ -93,6 +111,7 @@ const ScanForm = () => {
         }
     };
 
+
     return (
         <div>
             <Box
@@ -113,6 +132,9 @@ const ScanForm = () => {
                 <Typography variant="h6" sx={{mb: 2}}>
                     Netrunner
                 </Typography>
+
+                LocalNET: {network}
+
                 <TextField
                     label="IP Address / Pool"
                     id="standard-basic"
@@ -138,7 +160,7 @@ const ScanForm = () => {
                         <MenuItem value="-sn">Ping scan</MenuItem>
                         <MenuItem value="-sV -T4 -O -F --version-light">Quick scan plus</MenuItem>
                         <MenuItem value="-sn --traceroute">Quick trcrt</MenuItem>
-                        <MenuItem value=" ">Regular scan</MenuItem>
+                        <MenuItem value="">Regular scan</MenuItem>
                         <MenuItem value="-sS">Slow comprehensive scan</MenuItem>
                         <MenuItem value="custom">
                             Custom Scan
