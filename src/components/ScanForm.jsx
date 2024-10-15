@@ -88,7 +88,7 @@ const ScanForm = () => {
             let fullOutput = '';
 
             while (!(result = await reader.read()).done) {
-                const chunk = decoder.decode(result.value, { stream: true });
+                const chunk = decoder.decode(result.value, {stream: true});
                 fullOutput += chunk;
 
                 // Render den Live-Output im Popup
@@ -115,21 +115,23 @@ const ScanForm = () => {
                     position: 'absolute',
                     top: 20,
                     left: 20,
-                    width: 300,
-                    p: 2,
-                    bgcolor: 'rgb(255,255,255)',
-                    border: '2px solid blue',
-                    borderRadius: '8px',
+                    width: 320, // Slightly wider
+                    p: 3,
+                    bgcolor: 'background.paper', // MUI theme color
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Soft shadow
+                    borderRadius: '12px', // Softer corners
                     display: 'flex',
                     flexDirection: 'column',
                     zIndex: 2,
                 }}
             >
-                <Typography variant="h6" sx={{mb: 2}}>
+                <Typography variant="h6" sx={{mb: 2, color: 'text.primary'}}>
                     Netrunner
                 </Typography>
 
-                LocalNET: {network}
+                <Typography variant="body2" sx={{mb: 2, color: 'text.secondary'}}>
+                    LocalNET: {network}
+                </Typography>
 
                 <TextField
                     label="IP Address / Pool"
@@ -137,9 +139,9 @@ const ScanForm = () => {
                     onChange={(e) => setIpAddress(e.target.value)}
                     variant="standard"
                     fullWidth
-                    sx={{mb: 2}}
+                    sx={{mb: 3}}
                 />
-                <FormControl fullWidth sx={{mb: 2}}>
+                <FormControl fullWidth sx={{mb: 3}}>
                     <InputLabel id="scan-type-label">Scantype</InputLabel>
                     <Select
                         labelId="scan-type-label"
@@ -156,7 +158,7 @@ const ScanForm = () => {
                         <MenuItem value="-sn">Ping scan</MenuItem>
                         <MenuItem value="-sV -T4 -O -F --version-light">Quick scan plus</MenuItem>
                         <MenuItem value="-sn --traceroute">Quick trcrt</MenuItem>
-                        <MenuItem value="">Regular scan</MenuItem>
+                        <MenuItem value="" disabled={true}>Regular scan</MenuItem>
                         <MenuItem value="-sS">Slow comprehensive scan</MenuItem>
                         <MenuItem value="custom">
                             Custom Scan
@@ -171,15 +173,37 @@ const ScanForm = () => {
                         value={customCommand}
                         onChange={(e) => setCustomCommand(e.target.value)}
                         fullWidth
-                        sx={{mb: 2}}
+                        sx={{mb: 3}}
                     />
                 </Collapse>
 
                 <Box sx={{mt: 2, display: 'flex', justifyContent: 'space-between'}}>
-                    <Button variant="contained" color="primary" onClick={onScanClick}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={onScanClick}
+                        sx={{
+                            textTransform: 'none',
+                            boxShadow: 'none',
+                            '&:hover': {
+                                backgroundColor: 'primary.dark',
+                                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+                            },
+                        }}
+                    >
                         Scan
                     </Button>
-                    <Button variant="outlined" color="secondary">
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        sx={{
+                            textTransform: 'none',
+                            '&:hover': {
+                                backgroundColor: 'secondary.light',
+                                borderColor: 'secondary.dark',
+                            },
+                        }}
+                    >
                         Cancel
                     </Button>
                 </Box>

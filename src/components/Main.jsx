@@ -91,26 +91,6 @@ const Main = () => {
 
             {/* Floating semi-transparent UI */}
             <ScanForm/>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: 20,
-                    right: 20,
-                    p: 2,
-                    bgcolor: 'rgb(255,255,255)',
-                    border: '2px solid blue',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    zIndex: 2,
-                }}
-            >
-                <Typography variant="h6" sx={{mb: 2}}>
-                    Netrunner
-                </Typography>
-
-
-            </Box>
 
         </div>
 
