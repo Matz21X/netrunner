@@ -3,12 +3,13 @@ import ForceGraph2D from 'react-force-graph-2d';
 import {useEffect, useRef, useState} from "react";
 import Data from "./data.json";
 import ScanForm from "./ScanForm";
-import {Box, Typography} from "@mui/material";
+import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 
 
 const Main = () => {
-// eslint-disable-next-line
+    // eslint-disable-next-line
     const [tapNode, setTapNode] = useState(null);
+    // eslint-disable-next-line
     const [nodeData, setNodeData] = useState(null);
     const fgRef = useRef();
 
@@ -23,19 +24,22 @@ const Main = () => {
         if (node) {
             setTapNode(node);
             setNodeData({
-                id: node.ipv4,
-                type: node.type,  // Beispiel: kannst du je nach Info anpassen
-                info: node.info,
-                vendor: node.vendor,
-                mac: node.mac,
-                ports: node.ports,
-                services: node.services,
+                IP: node.id,
+                Type: node.type,  // Beispiel: kannst du je nach Info anpassen
+                Vendor: node.vendor,
+                MAC: node.mac,
+                OpenPorts: node.ports,
+                Services: node.services,
             });
         } else {
             setTapNode(null);
         }
 
     };
+
+    const onTestClick = () => {
+        console.log(nodeData);
+    }
 
     const drawLinkWithOffset = (link, ctx) => {
         const nodeRadius = 20;  // Define the radius of the node to offset the link
@@ -91,6 +95,63 @@ const Main = () => {
 
             {/* Floating semi-transparent UI */}
             <ScanForm/>
+
+            {nodeData ?
+                <Box sx={{
+                    position: 'absolute',
+                    top: 20,
+                    right: 20,
+                    width: 320, // Slightly wider
+                    p: 3,
+                    bgcolor: 'background.paper', // MUI theme color
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Soft shadow
+                    borderRadius: '12px', // Softer corners
+                    display: 'flex',
+                    flexDirection: 'column',
+                    zIndex: 2,
+                }}>
+                    <Typography variant="h6" sx={{mb: 2, color: 'text.primary'}}>
+                        Netrunner
+                    </Typography>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={onTestClick}
+                        sx={{
+                            textTransform: 'none',
+                            boxShadow: 'none',
+                            '&:hover': {
+                                backgroundColor: 'primary.dark',
+                                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+                            },
+                        }}
+                    >
+                        Test
+                    </Button>
+
+                    <TableContainer>
+                        <Table sx={{minWidth: 300}} size="small" aria-label="a dense table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Value</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {Object.entries(nodeData).map(([key, value]) => (
+                                    <TableRow key={key}>
+                                        <TableCell component="th" scope="row">
+                                            {key}
+                                        </TableCell>
+                                        <TableCell>{value}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+                : null}
 
         </div>
 
