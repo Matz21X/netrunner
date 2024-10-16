@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Logo from './logo.png'
 import {
     Box,
     TextField,
@@ -125,9 +126,9 @@ const ScanForm = () => {
                     zIndex: 2,
                 }}
             >
-                <Typography variant="h6" sx={{mb: 2, color: 'text.primary'}}>
-                    Netrunner
-                </Typography>
+                <img width={320} src={Logo}/>
+
+                <br/>
 
                 <Typography variant="body2" sx={{mb: 2, color: 'text.secondary'}}>
                     LocalNET: {network}

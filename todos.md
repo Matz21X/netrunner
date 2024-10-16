@@ -6,3 +6,5 @@
 - Fix problem with regular scan
 - Develop theme
 - Design icon
+
+Font: https://www.1001fonts.com/space-armor-font.html
